@@ -11,7 +11,6 @@ import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ServerWebExchange;
 
 import com.alibaba.fastjson2.JSON;
-import com.chatgpt.chatgptweb.data.GlobalVariable;
 import com.chatgpt.chatgptweb.meta.ChatProcessParam;
 import com.chatgpt.chatgptweb.service.FakeWebAPIChatServiceImpl;
 import com.chatgpt.chatgptweb.service.OfficialAPIChatServiceImpl;
@@ -48,13 +46,6 @@ public class ChatGPTController {
         log.info("[op:chatProcess] param={}", JSON.toJSONString(param));
         serverWebExchange.getResponse().getHeaders().setContentType(MediaType.APPLICATION_OCTET_STREAM);
         return officialAPIChatService.chatWithGPT(param);
-//        if (GlobalVariable.WEB_API_NOT_AVAILABLE ||
-//            StringUtils.isEmpty(GlobalVariable.WEB_API_ACCESS_TOKEN) ||
-//            StringUtils.isEmpty(GlobalVariable.WEB_API_COOKIE)) {
-//            return officialAPIChatService.chatWithGPT(param);
-//        } else {
-//            return fakeWebAPIChatService.chatWithGPT(param);
-//        }
     }
 
 }

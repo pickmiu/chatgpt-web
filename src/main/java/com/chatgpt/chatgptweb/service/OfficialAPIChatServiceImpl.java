@@ -22,7 +22,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.BodyInserters;
 
 import com.alibaba.fastjson2.JSON;
-import com.chatgpt.chatgptweb.data.GlobalVariable;
+import com.chatgpt.chatgptweb.meta.APIAccount;
 import com.chatgpt.chatgptweb.meta.ChatCompletionDTO;
 import com.chatgpt.chatgptweb.meta.ChatCompletionParam;
 import com.chatgpt.chatgptweb.meta.ChatProcessDTO;
@@ -73,7 +73,7 @@ public class OfficialAPIChatServiceImpl implements ChatSerivce {
         return WebClientFactory.getInstance()
             .post()
             .uri("https://api.openai-proxy.com/v1/chat/completions")
-            .header("Authorization", "Bearer " + GlobalVariable.OFFICIAL_API_ACCESS_TOKEN)
+            .header("Authorization", "Bearer " + getApiAccount().getAccessToken())
             .header("Content-Type", "application/json")
             .body(BodyInserters.fromValue(JSON.toJSONString(chatCompletionParam)))
             .accept(MediaType.TEXT_EVENT_STREAM)
@@ -109,6 +109,12 @@ public class OfficialAPIChatServiceImpl implements ChatSerivce {
                         JSON.toJSONString(historyMessageList));
                 }
             });
+    }
+
+    @Override
+    public APIAccount getApiAccount() {
+
+        return null;
     }
 
     private ChatCompletionParam convert(ChatProcessParam param) {

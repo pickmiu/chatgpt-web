@@ -8,6 +8,7 @@ package com.chatgpt.chatgptweb.service;
 
 import reactor.core.publisher.Flux;
 
+import com.chatgpt.chatgptweb.meta.APIAccount;
 import com.chatgpt.chatgptweb.meta.ChatProcessParam;
 
 /**
@@ -16,4 +17,6 @@ import com.chatgpt.chatgptweb.meta.ChatProcessParam;
 public interface ChatSerivce {
 
     Flux<String> chatWithGPT(ChatProcessParam param);
+
+    APIAccount getApiAccount();
 }
