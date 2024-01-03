@@ -37,9 +37,11 @@ import com.github.benmanes.caffeine.cache.Cache;
 @Service
 public class OfficialAPIChatServiceImpl implements ChatSerivce {
 
-
     @Resource
     private Cache<String, List<Message>> historyMessageCache;
+
+    @Resource
+    private ChatAPIAccountManager chatAPIAccountManager;
 
     @Override
     public Flux<String> chatWithGPT(ChatProcessParam param) {
@@ -113,12 +115,11 @@ public class OfficialAPIChatServiceImpl implements ChatSerivce {
 
     @Override
     public APIAccount getApiAccount() {
-
-        return null;
+        return chatAPIAccountManager.getApiAccountByPolling(APIAccount.SOURCE_OFFICIAL_API);
     }
 
     private ChatCompletionParam convert(ChatProcessParam param) {
-        List<Message> messages= new ArrayList<>(2);
+        List<Message> messages = new ArrayList<>(2);
         messages.add(new Message("system", param.getSystemMessage()));
         messages.add(new Message("user", param.getPrompt()));
         return ChatCompletionParam.builder()

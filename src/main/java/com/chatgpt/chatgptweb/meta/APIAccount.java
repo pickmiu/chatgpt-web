@@ -20,6 +20,9 @@ import lombok.NoArgsConstructor;
 @Builder
 public class APIAccount {
 
+    public static final String SOURCE_OFFICIAL_API = "officialapi";
+    public static final String SOURCE_WEB_API = "webapi";
+
     /**
      * 来源
      * officialapi
